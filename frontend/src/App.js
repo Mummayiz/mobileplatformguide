@@ -182,15 +182,18 @@ function App() {
     <div className={`min-h-screen transition-all duration-300 ${isDarkMode ? 'dark bg-gray-900' : 'bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100'}`}>
       {/* Header */}
       <header className={`backdrop-blur-md border-b sticky top-0 z-50 transition-all duration-300 ${isDarkMode ? 'bg-gray-800/70 border-gray-700/20' : 'bg-white/70 border-white/20'}`}>
-        <div className="max-w-7xl mx-auto px-4 py-6">
+        <div className="max-w-7xl mx-auto px-4 py-4 sm:py-6">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            {/* Logo and Title */}
+            <div className="flex-shrink-0">
+              <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                 PlatformGuide
               </h1>
-              <p className={`mt-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Compare pricing of popular SaaS providers & AI tools</p>
+              <p className={`mt-1 text-sm sm:text-base hidden sm:block ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Compare pricing of popular SaaS providers & AI tools</p>
             </div>
-            <div className="flex items-center gap-4">
+
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-4">
               {/* Theme Toggle */}
               <div className="flex items-center gap-2">
                 <Sun className={`h-4 w-4 ${isDarkMode ? 'text-gray-500' : 'text-yellow-500'}`} />
@@ -205,6 +208,7 @@ function App() {
               <Badge variant="secondary" className={isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-indigo-100 text-indigo-800'}>
                 {services.length} Services
               </Badge>
+              
               <div className="flex gap-2">
                 <Button
                   variant={viewMode === 'cards' ? 'default' : 'outline'}
@@ -224,30 +228,104 @@ function App() {
                 </Button>
               </div>
             </div>
+
+            {/* Mobile Menu Button */}
+            <div className="lg:hidden flex items-center gap-2">
+              <Badge variant="secondary" className={`text-xs ${isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-indigo-100 text-indigo-800'}`}>
+                {services.length}
+              </Badge>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleMobileMenu}
+                className="p-2"
+              >
+                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+            </div>
           </div>
+
+          {/* Mobile subtitle */}
+          <p className={`mt-2 text-sm block sm:hidden ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+            Compare SaaS providers & AI tools
+          </p>
+
+          {/* Mobile Menu */}
+          {isMobileMenuOpen && (
+            <div className={`lg:hidden mt-4 p-4 rounded-lg border ${isDarkMode ? 'bg-gray-800/90 border-gray-700' : 'bg-white/90 border-gray-200'}`}>
+              <div className="flex flex-col space-y-4">
+                {/* Theme Toggle */}
+                <div className="flex items-center justify-between">
+                  <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Dark Mode</span>
+                  <div className="flex items-center gap-2">
+                    <Sun className={`h-4 w-4 ${isDarkMode ? 'text-gray-500' : 'text-yellow-500'}`} />
+                    <Switch
+                      checked={isDarkMode}
+                      onCheckedChange={toggleTheme}
+                      className="data-[state=checked]:bg-indigo-600"
+                    />
+                    <Moon className={`h-4 w-4 ${isDarkMode ? 'text-blue-400' : 'text-gray-500'}`} />
+                  </div>
+                </div>
+                
+                {/* View Mode */}
+                <div className="flex flex-col space-y-2">
+                  <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>View Mode</span>
+                  <div className="flex gap-2">
+                    <Button
+                      variant={viewMode === 'cards' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => {
+                        setViewMode('cards');
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className={`flex-1 ${viewMode === 'cards' ? 'bg-indigo-600 hover:bg-indigo-700' : ''}`}
+                    >
+                      <Grid className="h-4 w-4 mr-2" />
+                      Cards
+                    </Button>
+                    <Button
+                      variant={viewMode === 'table' ? 'default' : 'outline'}
+                      size="sm"
+                      onClick={() => {
+                        setViewMode('table');
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className={`flex-1 ${viewMode === 'table' ? 'bg-indigo-600 hover:bg-indigo-700' : ''}`}
+                    >
+                      <List className="h-4 w-4 mr-2" />
+                      Table
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className="max-w-7xl mx-auto px-4 py-6 sm:py-8">
         {/* Filters */}
-        <div className={`backdrop-blur-md rounded-2xl p-6 mb-8 border transition-all duration-300 ${isDarkMode ? 'bg-gray-800/70 border-gray-700/20' : 'bg-white/70 border-white/20'}`}>
-          <div className="flex flex-col lg:flex-row gap-4">
-            <div className="flex-1">
+        <div className={`backdrop-blur-md rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 border transition-all duration-300 ${isDarkMode ? 'bg-gray-800/70 border-gray-700/20' : 'bg-white/70 border-white/20'}`}>
+          <div className="flex flex-col space-y-4">
+            {/* Search */}
+            <div className="w-full">
               <div className="relative">
                 <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-400'}`} />
                 <Input
-                  placeholder="Search services, features, or advantages..."
+                  placeholder="Search services, features..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className={`pl-10 transition-all duration-300 ${isDarkMode ? 'bg-gray-700/80 border-gray-600/40 text-white focus:bg-gray-700' : 'bg-white/80 border-white/40 focus:bg-white'}`}
+                  className={`pl-10 w-full transition-all duration-300 ${isDarkMode ? 'bg-gray-700/80 border-gray-600/40 text-white focus:bg-gray-700' : 'bg-white/80 border-white/40 focus:bg-white'}`}
                 />
               </div>
             </div>
             
-            <div className="flex gap-4 flex-wrap lg:flex-nowrap">
+            {/* Filters Row */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className={`w-full lg:w-48 transition-all duration-300 ${isDarkMode ? 'bg-gray-700/80 border-gray-600/40 text-white' : 'bg-white/80 border-white/40'}`}>
-                  <Filter className="h-4 w-4 mr-2" />
+                <SelectTrigger className={`transition-all duration-300 ${isDarkMode ? 'bg-gray-700/80 border-gray-600/40 text-white' : 'bg-white/80 border-white/40'}`}>
+                  <Filter className="h-4 w-4 mr-2 flex-shrink-0" />
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className={isDarkMode ? 'bg-gray-800 border-gray-700' : ''}>
@@ -260,8 +338,8 @@ function App() {
               </Select>
 
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className={`w-full lg:w-40 transition-all duration-300 ${isDarkMode ? 'bg-gray-700/80 border-gray-600/40 text-white' : 'bg-white/80 border-white/40'}`}>
-                  <TrendingUp className="h-4 w-4 mr-2" />
+                <SelectTrigger className={`transition-all duration-300 ${isDarkMode ? 'bg-gray-700/80 border-gray-600/40 text-white' : 'bg-white/80 border-white/40'}`}>
+                  <TrendingUp className="h-4 w-4 mr-2 flex-shrink-0" />
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className={isDarkMode ? 'bg-gray-800 border-gray-700' : ''}>
@@ -276,8 +354,28 @@ function App() {
                 onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
                 className={`transition-all duration-300 ${isDarkMode ? 'bg-gray-700/80 border-gray-600/40 hover:bg-gray-700 text-white' : 'bg-white/80 border-white/40 hover:bg-white'}`}
               >
-                {sortOrder === 'asc' ? '↑' : '↓'}
+                Sort {sortOrder === 'asc' ? '↑' : '↓'}
               </Button>
+
+              {/* Mobile View Toggle */}
+              <div className="sm:hidden flex gap-2">
+                <Button
+                  variant={viewMode === 'cards' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setViewMode('cards')}
+                  className={`flex-1 ${viewMode === 'cards' ? 'bg-indigo-600 hover:bg-indigo-700' : ''}`}
+                >
+                  <Grid className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant={viewMode === 'table' ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setViewMode('table')}
+                  className={`flex-1 ${viewMode === 'table' ? 'bg-indigo-600 hover:bg-indigo-700' : ''}`}
+                >
+                  <List className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>

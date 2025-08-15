@@ -286,41 +286,215 @@ p {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Responsive design improvements */
+/* Enhanced Mobile Responsive Design */
+
+/* Improved mobile viewport and touch interactions */
 @media (max-width: 768px) {
+  /* Reduce padding on mobile for more content space */
   .max-w-7xl {
     padding-left: 1rem;
     padding-right: 1rem;
   }
   
+  /* Header improvements */
   header .flex {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
   }
   
-  .grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3 {
+  /* Mobile menu positioning and animation */
+  .mobile-menu {
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Ensure cards stack properly on mobile */
+  .grid-cols-1.sm\:grid-cols-2.xl\:grid-cols-3 {
     grid-template-columns: 1fr;
   }
   
-  /* Ensure theme toggle is visible on mobile */
-  .theme-toggle {
-    order: -1;
+  /* Touch-friendly button sizes */
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better tap targets for mobile */
+  .mobile-tap-target {
+    padding: 12px;
+    min-height: 48px;
+  }
+  
+  /* Improved text legibility on mobile */
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 }
 
 @media (max-width: 640px) {
-  .flex-col.lg\\:flex-row {
+  /* Stack elements vertically on small screens */
+  .flex-col.lg\:flex-row {
     flex-direction: column;
   }
   
-  .flex.gap-4.flex-wrap.lg\\:flex-nowrap {
+  .flex.gap-4.flex-wrap.lg\:flex-nowrap {
     flex-direction: column;
   }
   
-  .w-full.lg\\:w-48,
-  .w-full.lg\\:w-40 {
+  /* Full width on mobile */
+  .w-full.lg\:w-48,
+  .w-full.lg\:w-40 {
     width: 100%;
+  }
+  
+  /* Reduce spacing on mobile */
+  .space-y-4 > :not([hidden]) ~ :not([hidden]) {
+    margin-top: 0.75rem;
+  }
+  
+  /* Improved card layouts */
+  .card-mobile {
+    padding: 0.75rem;
+  }
+  
+  /* Better table handling on mobile */
+  .table-mobile-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .hover-lift:hover {
+    transform: none;
+    box-shadow: inherit;
+  }
+  
+  /* Larger touch targets */
+  button, .clickable {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  /* Improved form inputs for touch */
+  input, select, textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+    min-height: 44px;
+  }
+}
+
+/* High DPI screen optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Ensure crisp icons and images */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Landscape mobile optimization */
+@media screen and (max-width: 896px) and (orientation: landscape) {
+  /* Reduce header height in landscape */
+  header {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  /* Optimize content spacing */
+  main {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+/* Text truncation utilities for mobile */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* Improved focus states for mobile */
+@media (max-width: 768px) {
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+}
+
+/* Safe area handling for modern mobile devices */
+@supports (padding: max(0px)) {
+  .safe-area-padding {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Improved scrolling performance */
+.scroll-smooth {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile-first animations */
+@media (prefers-reduced-motion: no-preference) {
+  .mobile-entrance {
+    animation: mobileSlideUp 0.4s ease-out;
+  }
+  
+  @keyframes mobileSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Better contrast for mobile screens */
+@media (max-width: 768px) {
+  .text-gray-600 {
+    color: #4b5563; /* Slightly darker for better mobile readability */
+  }
+  
+  .dark .text-gray-400 {
+    color: #d1d5db; /* Slightly lighter for better mobile readability in dark mode */
   }
 }
 

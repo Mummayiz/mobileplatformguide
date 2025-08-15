@@ -383,64 +383,64 @@ function App() {
         {/* Content */}
         <Tabs value={viewMode} onValueChange={setViewMode}>
           <TabsContent value="cards">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
               {processedServices.map((service) => (
                 <Card key={service.id} className={`group hover:shadow-xl transition-all duration-300 backdrop-blur-md border overflow-hidden hover-lift ${isDarkMode ? 'bg-gray-800/70 border-gray-700/20 hover:bg-gray-800/90' : 'bg-white/70 border-white/20 hover:bg-white/90'}`}>
-                  <CardHeader className="pb-4">
+                  <CardHeader className="pb-3 sm:pb-4">
                     <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="relative">
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <div className="relative flex-shrink-0">
                           {service.logo_url && (
                             <img 
                               src={service.logo_url} 
                               alt={service.name}
-                              className="w-10 h-10 rounded-lg object-contain"
+                              className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg object-contain"
                               onError={handleLogoError}
                               style={{filter: isDarkMode && service.logo_url.includes('simple-icons') ? 'invert(1)' : 'none'}}
                             />
                           )}
                         </div>
-                        <div>
-                          <CardTitle className={`text-xl font-bold transition-colors group-hover:text-indigo-600 ${isDarkMode ? 'text-gray-100' : 'text-gray-800'}`}>
+                        <div className="min-w-0 flex-1">
+                          <CardTitle className={`text-lg sm:text-xl font-bold transition-colors group-hover:text-indigo-600 ${isDarkMode ? 'text-gray-100' : 'text-gray-800'} truncate`}>
                             {service.name}
                             {isCheapest(service) && (
-                              <Trophy className="inline-block ml-2 h-4 w-4 text-yellow-500" />
+                              <Trophy className="inline-block ml-1 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 text-yellow-500 flex-shrink-0" />
                             )}
                           </CardTitle>
-                          <Badge className={getCategoryColor(service.category)}>
+                          <Badge className={`text-xs ${getCategoryColor(service.category)}`}>
                             {service.category}
                           </Badge>
                         </div>
                       </div>
                     </div>
-                    <CardDescription className={`mt-2 leading-relaxed ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    <CardDescription className={`mt-2 leading-relaxed text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'} line-clamp-2`}>
                       {service.description}
                     </CardDescription>
                   </CardHeader>
 
-                  <CardContent className="space-y-4">
+                  <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6">
                     {/* Pricing Tiers */}
                     <div>
-                      <h4 className={`font-semibold mb-3 flex items-center gap-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
-                        <Star className="h-4 w-4 text-indigo-500" />
+                      <h4 className={`font-semibold mb-2 sm:mb-3 flex items-center gap-2 text-sm sm:text-base ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
+                        <Star className="h-3 w-3 sm:h-4 sm:w-4 text-indigo-500 flex-shrink-0" />
                         Pricing Tiers
                       </h4>
-                      <div className="space-y-2">
-                        {service.tiers.slice(0, 3).map((tier, index) => (
+                      <div className="space-y-1 sm:space-y-2">
+                        {service.tiers.slice(0, 2).map((tier, index) => (
                           <div key={index} className={`flex justify-between items-center p-2 rounded-lg ${isDarkMode ? 'bg-gray-700/60' : 'bg-gray-50/80'}`}>
-                            <span className={`font-medium text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>{tier.name}</span>
-                            <span className="font-bold text-indigo-600">{formatPrice(tier.price)}</span>
+                            <span className={`font-medium text-xs sm:text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-700'} truncate mr-2`}>{tier.name}</span>
+                            <span className="font-bold text-indigo-600 text-xs sm:text-sm flex-shrink-0">{formatPrice(tier.price)}</span>
                           </div>
                         ))}
-                        {service.tiers.length > 3 && (
-                          <p className={`text-xs text-center ${isDarkMode ? 'text-gray-500' : 'text-gray-500'}`}>+{service.tiers.length - 3} more tiers</p>
+                        {service.tiers.length > 2 && (
+                          <p className={`text-xs text-center ${isDarkMode ? 'text-gray-500' : 'text-gray-500'}`}>+{service.tiers.length - 2} more tiers</p>
                         )}
                       </div>
                     </div>
 
                     {/* Advantages */}
                     <div>
-                      <h4 className={`font-semibold mb-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>Advantages</h4>
+                      <h4 className={`font-semibold mb-2 text-sm sm:text-base ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>Advantages</h4>
                       <div className="flex flex-wrap gap-1">
                         {service.advantages.slice(0, 3).map((advantage, index) => (
                           <Badge key={index} variant="secondary" className={`text-xs ${isDarkMode ? 'bg-green-900/30 text-green-300' : 'bg-green-100 text-green-700'}`}>
@@ -449,20 +449,21 @@ function App() {
                         ))}
                         {service.advantages.length > 3 && (
                           <Badge variant="secondary" className={`text-xs ${isDarkMode ? 'bg-gray-700 text-gray-400' : 'bg-gray-100 text-gray-600'}`}>
-                            +{service.advantages.length - 3} more
+                            +{service.advantages.length - 3}
                           </Badge>
                         )}
                       </div>
                     </div>
                   </CardContent>
 
-                  <CardFooter className="pt-4">
+                  <CardFooter className="pt-3 sm:pt-4 px-4 sm:px-6">
                     <Button 
-                      className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white group-hover:shadow-lg transition-all duration-300"
+                      className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white group-hover:shadow-lg transition-all duration-300 text-sm sm:text-base"
                       onClick={() => window.open(service.link, '_blank')}
+                      size="sm"
                     >
                       View Pricing
-                      <ExternalLink className="ml-2 h-4 w-4" />
+                      <ExternalLink className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </CardFooter>
                 </Card>
@@ -472,77 +473,147 @@ function App() {
 
           <TabsContent value="table">
             <div className={`backdrop-blur-md rounded-2xl overflow-hidden border transition-all duration-300 ${isDarkMode ? 'bg-gray-800/70 border-gray-700/20' : 'bg-white/70 border-white/20'}`}>
-              <Table>
-                <TableHeader>
-                  <TableRow className={isDarkMode ? 'bg-gray-800/80 border-gray-700' : 'bg-gray-50/80'}>
-                    <TableHead className={`font-bold ${isDarkMode ? 'text-gray-200' : ''}`}>Service</TableHead>
-                    <TableHead className={`font-bold ${isDarkMode ? 'text-gray-200' : ''}`}>Category</TableHead>
-                    <TableHead className={`font-bold ${isDarkMode ? 'text-gray-200' : ''}`}>Starting Price</TableHead>
-                    <TableHead className={`font-bold ${isDarkMode ? 'text-gray-200' : ''}`}>Top Features</TableHead>
-                    <TableHead className={`font-bold ${isDarkMode ? 'text-gray-200' : ''}`}>Link</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
+              {/* Mobile Table View */}
+              <div className="block sm:hidden">
+                <div className="divide-y divide-gray-200 dark:divide-gray-700">
                   {processedServices.map((service) => (
-                    <TableRow key={service.id} className={`transition-colors ${isDarkMode ? 'hover:bg-gray-700/60 border-gray-700' : 'hover:bg-white/60'}`}>
-                      <TableCell>
-                        <div className="flex items-center gap-3">
-                          <div className="relative">
-                            {service.logo_url && (
-                              <img 
-                                src={service.logo_url} 
-                                alt={service.name}
-                                className="w-8 h-8 rounded object-contain"
-                                onError={handleLogoError}
-                                style={{filter: isDarkMode && service.logo_url.includes('simple-icons') ? 'invert(1)' : 'none'}}
-                              />
+                    <div key={service.id} className={`p-4 transition-colors ${isDarkMode ? 'hover:bg-gray-700/60' : 'hover:bg-white/60'}`}>
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className="relative flex-shrink-0">
+                          {service.logo_url && (
+                            <img 
+                              src={service.logo_url} 
+                              alt={service.name}
+                              className="w-8 h-8 rounded object-contain"
+                              onError={handleLogoError}
+                              style={{filter: isDarkMode && service.logo_url.includes('simple-icons') ? 'invert(1)' : 'none'}}
+                            />
+                          )}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className={`font-semibold flex items-center gap-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'} text-sm`}>
+                            {service.name}
+                            {isCheapest(service) && (
+                              <Trophy className="h-4 w-4 text-yellow-500 flex-shrink-0" />
                             )}
                           </div>
-                          <div>
-                            <div className={`font-semibold flex items-center gap-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
-                              {service.name}
-                              {isCheapest(service) && (
-                                <Trophy className="h-4 w-4 text-yellow-500" />
-                              )}
-                            </div>
-                            <div className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>{service.description}</div>
+                          <Badge className={`text-xs mt-1 ${getCategoryColor(service.category)}`}>
+                            {service.category}
+                          </Badge>
+                          <div className={`text-xs mt-1 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'} line-clamp-2`}>{service.description}</div>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="font-bold text-indigo-600 text-sm">
+                            {formatPrice(service.tiers[0].price)}
                           </div>
+                          <div className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{service.tiers[0].name}</div>
                         </div>
-                      </TableCell>
-                      <TableCell>
-                        <Badge className={getCategoryColor(service.category)}>
-                          {service.category}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <div className="font-bold text-indigo-600">
-                          {formatPrice(service.tiers[0].price)}
-                        </div>
-                        <div className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{service.tiers[0].name}</div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex flex-wrap gap-1">
-                          {service.advantages.slice(0, 3).map((advantage, index) => (
-                            <Badge key={index} variant="secondary" className={`text-xs ${isDarkMode ? 'bg-gray-700 text-gray-300' : ''}`}>
-                              {advantage}
-                            </Badge>
-                          ))}
-                        </div>
-                      </TableCell>
-                      <TableCell>
                         <Button 
                           size="sm" 
                           variant="outline"
                           onClick={() => window.open(service.link, '_blank')}
-                          className={`transition-all duration-300 ${isDarkMode ? 'hover:bg-gray-700 hover:text-indigo-400 hover:border-indigo-400' : 'hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-300'}`}
+                          className={`transition-all duration-300 text-xs ${isDarkMode ? 'hover:bg-gray-700 hover:text-indigo-400 hover:border-indigo-400' : 'hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-300'}`}
                         >
-                          <ExternalLink className="h-4 w-4" />
+                          <ExternalLink className="h-3 w-3" />
                         </Button>
-                      </TableCell>
-                    </TableRow>
+                      </div>
+
+                      <div className="mt-3">
+                        <div className="flex flex-wrap gap-1">
+                          {service.advantages.slice(0, 2).map((advantage, index) => (
+                            <Badge key={index} variant="secondary" className={`text-xs ${isDarkMode ? 'bg-gray-700 text-gray-300' : ''}`}>
+                              {advantage}
+                            </Badge>
+                          ))}
+                          {service.advantages.length > 2 && (
+                            <Badge variant="secondary" className={`text-xs ${isDarkMode ? 'bg-gray-700 text-gray-300' : ''}`}>
+                              +{service.advantages.length - 2}
+                            </Badge>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   ))}
-                </TableBody>
-              </Table>
+                </div>
+              </div>
+
+              {/* Desktop Table View */}
+              <div className="hidden sm:block overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className={isDarkMode ? 'bg-gray-800/80 border-gray-700' : 'bg-gray-50/80'}>
+                      <TableHead className={`font-bold ${isDarkMode ? 'text-gray-200' : ''}`}>Service</TableHead>
+                      <TableHead className={`font-bold ${isDarkMode ? 'text-gray-200' : ''}`}>Category</TableHead>
+                      <TableHead className={`font-bold ${isDarkMode ? 'text-gray-200' : ''}`}>Starting Price</TableHead>
+                      <TableHead className={`font-bold ${isDarkMode ? 'text-gray-200' : ''}`}>Top Features</TableHead>
+                      <TableHead className={`font-bold ${isDarkMode ? 'text-gray-200' : ''}`}>Link</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {processedServices.map((service) => (
+                      <TableRow key={service.id} className={`transition-colors ${isDarkMode ? 'hover:bg-gray-700/60 border-gray-700' : 'hover:bg-white/60'}`}>
+                        <TableCell>
+                          <div className="flex items-center gap-3">
+                            <div className="relative flex-shrink-0">
+                              {service.logo_url && (
+                                <img 
+                                  src={service.logo_url} 
+                                  alt={service.name}
+                                  className="w-8 h-8 rounded object-contain"
+                                  onError={handleLogoError}
+                                  style={{filter: isDarkMode && service.logo_url.includes('simple-icons') ? 'invert(1)' : 'none'}}
+                                />
+                              )}
+                            </div>
+                            <div className="min-w-0">
+                              <div className={`font-semibold flex items-center gap-2 ${isDarkMode ? 'text-gray-200' : 'text-gray-800'}`}>
+                                {service.name}
+                                {isCheapest(service) && (
+                                  <Trophy className="h-4 w-4 text-yellow-500" />
+                                )}
+                              </div>
+                              <div className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'} truncate max-w-xs`}>{service.description}</div>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Badge className={getCategoryColor(service.category)}>
+                            {service.category}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="font-bold text-indigo-600">
+                            {formatPrice(service.tiers[0].price)}
+                          </div>
+                          <div className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>{service.tiers[0].name}</div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex flex-wrap gap-1">
+                            {service.advantages.slice(0, 3).map((advantage, index) => (
+                              <Badge key={index} variant="secondary" className={`text-xs ${isDarkMode ? 'bg-gray-700 text-gray-300' : ''}`}>
+                                {advantage}
+                              </Badge>
+                            ))}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => window.open(service.link, '_blank')}
+                            className={`transition-all duration-300 ${isDarkMode ? 'hover:bg-gray-700 hover:text-indigo-400 hover:border-indigo-400' : 'hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-300'}`}
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             </div>
           </TabsContent>
         </Tabs>

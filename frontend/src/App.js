@@ -619,10 +619,10 @@ function App() {
         </Tabs>
 
         {processedServices.length === 0 && (
-          <div className="text-center py-12">
+          <div className="text-center py-8 sm:py-12">
             <div className={isDarkMode ? 'text-gray-400' : 'text-gray-500'}>
-              <Search className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p className="text-lg font-medium">No services found</p>
+              <Search className="h-8 w-8 sm:h-12 sm:w-12 mx-auto mb-4 opacity-50" />
+              <p className="text-base sm:text-lg font-medium">No services found</p>
               <p className="text-sm">Try adjusting your search or filter criteria</p>
             </div>
           </div>
@@ -630,12 +630,12 @@ function App() {
       </main>
 
       {/* Footer */}
-      <footer className={`backdrop-blur-md border-t py-8 mt-16 transition-all duration-300 ${isDarkMode ? 'bg-gray-800/70 border-gray-700/20' : 'bg-white/70 border-white/20'}`}>
+      <footer className={`backdrop-blur-md border-t py-6 sm:py-8 mt-8 sm:mt-16 transition-all duration-300 ${isDarkMode ? 'bg-gray-800/70 border-gray-700/20' : 'bg-white/70 border-white/20'}`}>
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>
+          <p className={`text-sm sm:text-base ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
             Built with ❤️ for developers • Compare {services.length} SaaS services
           </p>
-          <p className={`text-sm mt-2 ${isDarkMode ? 'text-gray-500' : 'text-gray-500'}`}>
+          <p className={`text-xs sm:text-sm mt-2 ${isDarkMode ? 'text-gray-500' : 'text-gray-500'}`}>
             Prices are approximate and may vary. Always check official websites for current pricing.
           </p>
         </div>

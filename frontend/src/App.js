@@ -8,7 +8,7 @@ import { Badge } from './components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import { Switch } from './components/ui/switch';
-import { Search, Grid, List, TrendingUp, ExternalLink, Star, Trophy, Filter, Sun, Moon } from 'lucide-react';
+import { Search, Grid, List, TrendingUp, ExternalLink, Star, Trophy, Filter, Sun, Moon, Menu, X } from 'lucide-react';
 import './App.css';
 
 const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
@@ -21,6 +21,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // Filters and sorting
   const [searchTerm, setSearchTerm] = useState('');
@@ -42,6 +43,10 @@ function App() {
     setIsDarkMode(newTheme);
     localStorage.setItem('theme', newTheme ? 'dark' : 'light');
     document.documentElement.classList.toggle('dark', newTheme);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   // Fetch data
